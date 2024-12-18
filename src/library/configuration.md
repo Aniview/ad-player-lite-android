@@ -33,4 +33,4 @@ dependencies {
 </application>
 ```
 
-Now your project is configured and you can move to [creating first in-read placement](./in-read-basic.md).
+Now your project is configured and you can move to [creating first in-read placement](./in-read-create.md).
