@@ -3,7 +3,7 @@
 Both content and playlists are only available for insteam tags.
 
 
-# Managing Playlist
+## Managing Playlist
 
 Playlist contains list of content videos that are played one after the other. We can read current playlist like this:
 
@@ -27,7 +27,7 @@ coroutineScope.launch {
 ```
 
 
-# Currently Played Content
+## Currently Played Content
 
 `AdPlayerController` can be used to track which content is currently playing:
 ```kotlin
@@ -52,7 +52,7 @@ coroutineScope.launch {
 ```
 
 
-# Choosing Content To Play
+## Choosing Content to Play
 
 In order to play different video from the playlist we can use these functions:
 ```kotlin
