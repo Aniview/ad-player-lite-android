@@ -19,6 +19,8 @@ Or though the layout xml files:
     android:layout_height="wrap_content" />
 ```
 
+It is not possible to load content from the xml file so it is still required to call `AdPlayerView.load` from the code.
+
 
 ## Releasing AdPlayerView
 
