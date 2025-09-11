@@ -62,13 +62,33 @@ controller.resume()
 controller.skipAd()
 ```
 
-`AdPlayerInReadController` also provides additional functinality:
+`AdPlayerInReadController` also provides additional functionality:
 ```kotlin
 val controller: AdPlayerInReadController
 
 // toggle fullscreen mode
 controller.toggleFullscreen()
 ```
+
+
+## Controlling Audio Volume
+`Available since 2.3.0`
+
+Audio volume level can be changed as following:
+```kotlin
+val controller: AdPlayerController
+
+// set max volume
+controller.setVolumeLevel(1f)
+
+// set min volume (mute)
+controller.setVolumeLevel(0f)
+
+// set average volume level
+controller.setVolumeLevel(0.5f)
+```
+
+Volume changes can be observed through the `AdPlayerEvent.AdVolumeChange` and `AdPlayerEvent.ContentVolumeChange` events.
 
 
 ## Listening for State Changes / Events

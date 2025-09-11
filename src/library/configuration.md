@@ -14,7 +14,7 @@ dependencyResolutionManagement {
 2. Add library dependencies to the app's module `build.gradle.kts`:
 ```kts
 dependencies {
-    implementation("com.adservrs:ad-player-lite:1.0.0")
+    implementation("com.adservrs:ad-player-lite:2.3.0")
 }
 ```
 
