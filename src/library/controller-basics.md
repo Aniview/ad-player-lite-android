@@ -98,7 +98,7 @@ One of the things controller provides is ability to listen for state changes and
 val controller: AdPlayerController
 
 // reading current state
-Log.d("TAG", "Currect state is ${controller.state.value}")
+Log.d("TAG", "Current state is ${controller.state.value}")
 
 // listening for state changes
 coroutineScope.launch {
@@ -116,5 +116,30 @@ coroutineScope.launch {
             Log.d("TAG", "Ad impressions was triggered")
         }
     }
+}
+```
+
+
+## Listening for Placement Type Changes
+`Available since 2.4.0`
+
+AtPlayer Tag can be attached to different types of placements (like in-read, fullscreen, interstitial, etc.).
+These placement type changes can be observed:
+```kotlin
+val controller: AdPlayerController
+
+// reading current placement type
+Log.d("TAG", "Current placement type is ${controller.placement.value}")
+
+// listening for placement type changes
+coroutineScope.launch {
+    controller.placement.collect {
+        Log.d("TAG", "Placement type changed to $it")
+    }
+}
+
+// listening for placement type changes with java-style listener
+controller.addPlacementTypeListener {
+    Log.d("TAG", "Placement type changed to $it")
 }
 ```
