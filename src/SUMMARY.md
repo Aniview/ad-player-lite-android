@@ -20,5 +20,6 @@
 - [Instream Content and Playlist](library/content-and-playlist.md)
 - [Loose Constraints and Feathering](library/loose-constraints-and-feathering/index.md)
 - [Player Controls Visibility](library/controls-visibility/index.md)
+- [Preloading](library/preloading.md)
 
 ---
