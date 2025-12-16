@@ -10,6 +10,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.adservrs.adplayer.lite.example.examples.ClickThroughInterceptorExample
+import com.adservrs.adplayer.lite.example.examples.InstreamContentOverrideExample
 import com.adservrs.adplayer.lite.example.examples.MasterHeadExample
 import com.adservrs.adplayer.lite.example.examples.Preloading
 import com.adservrs.adplayer.lite.example.examples.SimpleExample
@@ -37,6 +38,12 @@ enum class Example {
         @Composable
         override fun Compose(modifier: Modifier) {
             ClickThroughInterceptorExample(modifier)
+        }
+    },
+    InstreamContentOverride {
+        @Composable
+        override fun Compose(modifier: Modifier) {
+            InstreamContentOverrideExample(modifier)
         }
     };
 
