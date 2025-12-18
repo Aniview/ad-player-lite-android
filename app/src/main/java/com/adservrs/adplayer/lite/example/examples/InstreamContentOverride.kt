@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
-import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,18 +19,44 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.adservrs.adplayer.lite.AdPlayer
-import com.adservrs.adplayer.lite.AdPlayerInReadController
 import com.adservrs.adplayer.lite.AdPlayerContentOverride
+import com.adservrs.adplayer.lite.AdPlayerInReadController
 import com.adservrs.adplayer.lite.AdPlayerView
+
+private enum class ContentOverrideType {
+    None {
+        override fun build(): AdPlayerContentOverride? = null
+    },
+    CmsId {
+        override fun build() = AdPlayerContentOverride.CmsId(
+            cmsId = "6915845312387b243304e745"
+        )
+    },
+    DirectUrl {
+        override fun build() = AdPlayerContentOverride.DirectUrl(
+            urls = listOf("https://getsamplefiles.com/download/mp4/sample-5.mp4"),
+        )
+    };
+
+    abstract fun build(): AdPlayerContentOverride?
+}
 
 @Suppress("COMPOSE_APPLIER_CALL_MISMATCH")
 @Composable
 fun InstreamContentOverrideExample(modifier: Modifier = Modifier) {
     val context = LocalContext.current
-    val override = remember { mutableStateOf(true) }
+    val overrideType = remember { mutableStateOf(ContentOverrideType.None) }
     val controllerState = remember { mutableStateOf<AdPlayerInReadController?>(null) }
 
-    fun toggle() {
+    fun toggleOverrideType() {
+        overrideType.value = when (overrideType.value) {
+            ContentOverrideType.None -> ContentOverrideType.CmsId
+            ContentOverrideType.CmsId -> ContentOverrideType.DirectUrl
+            ContentOverrideType.DirectUrl -> ContentOverrideType.None
+        }
+    }
+
+    fun toggleController() {
         if (controllerState.value != null) {
             return controllerState::value.set(null)
         }
@@ -43,11 +68,7 @@ fun InstreamContentOverrideExample(modifier: Modifier = Modifier) {
         )
 
         controllerState.value = tag.newInReadController {
-            if (override.value) {
-                it.contentOverride = AdPlayerContentOverride(
-                    cmsId = "6915845312387b243304e745"
-                )
-            }
+            it.contentOverride = overrideType.value.build()
         }
     }
 
@@ -59,21 +80,18 @@ fun InstreamContentOverrideExample(modifier: Modifier = Modifier) {
             .padding(16.dp),
     ) {
         ListItem(
-            leadingContent = {
-                Checkbox(
-                    checked = override.value,
-                    onCheckedChange = { override.value = !override.value },
-                )
-            },
             headlineContent = {
-                Text("Override content")
+                Text("Override content type")
+            },
+            supportingContent = {
+                Text(overrideType.value.name)
             },
             modifier = Modifier.clickable {
-                override.value = !override.value
+                toggleOverrideType()
             },
         )
 
-        Button(onClick = ::toggle) {
+        Button(onClick = ::toggleController) {
             val text = when (controllerState.value) {
                 null -> "Show"
                 else -> "Hide"
