@@ -46,6 +46,31 @@ controller.release()
 In cases when `AdPlayerInReadController` is attached to the `AdPlayerView`, it will be automatically released with the view itself.
 
 
+## Controller Configuration
+
+Controllers can be preconfigured during creation:
+```kotlin
+val tag: AdPlayerTag
+val controller = tag.newInReadController {
+    // disable in-stream video ads
+    // * available since 3.0.0
+    it.disableVideoAds = true
+
+    // override in-stream content by using CmsId
+    // * available since 3.0.0
+    it.contentOverride = AdPlayerContentOverride.CmsId(
+        cmsId = "<custom video cms id>"
+    )
+
+    // override in-stream content by using direct video url
+    // * available since 3.0.0
+    it.contentOverride = AdPlayerContentOverride.DirectUrl(
+        urls = listOf("https://my-cdn.com/video.mp4"),
+    )
+}
+```
+
+
 ## Controlling Video Playback
 
 Most basic functionality, that controllers allow, is to control video playback:
