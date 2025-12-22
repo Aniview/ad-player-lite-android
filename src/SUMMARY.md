@@ -16,6 +16,7 @@
 - [Displaying Ads / Content](library/in-read-create.md)
     - [Creating In-Read Placement](library/in-read-create.md)
     - [Launching Interstitials](library/interstitial-launch.md)
+- [Tag Basics](library/tag-basics.md)
 - [Controller Basics](library/controller-basics.md)
 - [Instream Content and Playlist](library/content-and-playlist.md)
 - [Loose Constraints and Feathering](library/loose-constraints-and-feathering/index.md)
