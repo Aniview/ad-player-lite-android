@@ -5,6 +5,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 import com.adservrs.adplayer.lite.AdPlayerView
+import com.adservrs.adplayer.lite.AdPlayerController
 import com.adservrs.adplayer.lite.example.PUB_ID
 import com.adservrs.adplayer.lite.example.TAG_ID
 import androidx.compose.foundation.layout.Arrangement
@@ -18,14 +19,61 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.background
 import androidx.compose.ui.graphics.Color
 import android.view.ViewGroup
+import org.json.JSONObject
+
+private val contentControlKeys = setOf(
+    "primaryPlayButton",
+    "primaryPauseButton",
+    "primaryReplayButton",
+    "primaryPrevButton",
+    "primaryNextButton",
+    "primaryFastForwardButton",
+    "primaryFastBackwardButton",
+    "secondaryPlayButton",
+    "secondaryPauseButton",
+    "secondaryReplayButton",
+    "secondaryPrevButton",
+    "secondaryNextButton",
+    "secondaryFastForwardButton",
+    "secondaryFastBackwardButton",
+    "closeButton",
+    "closeFullscreenButton",
+    "playlistButton",
+    "readMoreButton",
+    "fullscreenButton",
+    "volumeButton",
+    "stayButton",
+    "autoSkip",
+    "nextPreview",
+    "timeline",
+    "duration",
+)
 
 @Composable
 fun SwitchableExample(modifier: Modifier) {
     var isTopContainer by remember { mutableStateOf(true) }
+    var controlsVisible by remember { mutableStateOf(true) }
 
     // Create a single AdPlayerView instance that will be reused
     val playerView = remember {
         mutableStateOf<AdPlayerView?>(null)
+    }
+
+    // Controller reference for managing content config
+    val controller = remember { mutableStateOf<AdPlayerController?>(null) }
+
+    // Function to hide all controls
+    val hideAllControls: () -> Unit = {
+        if (controlsVisible) {
+            controlsVisible = false
+            controller.value?.let { ctrl ->
+                val config = JSONObject()
+                for (key in contentControlKeys) {
+                    config.put(key, JSONObject().put("enable", false))
+                }
+                ctrl.mergeContentConfig(config)
+            }
+        }
     }
 
 
@@ -39,15 +87,16 @@ fun SwitchableExample(modifier: Modifier) {
             isActive = isTopContainer,
             activeLabel = "Active Player Container (Top)",
             inactiveLabel = "Top Container (Inactive)",
-            playerView = playerView
+            playerView = playerView,
+            controller = controller
         )
 
-        Button(
-            onClick = { isTopContainer = !isTopContainer },
-            modifier = Modifier.align(Alignment.CenterHorizontally).padding(16.dp)
-        ) {
-            Text("Switch View")
-        }
+        // Buttons Row
+        ButtonRow(
+            onSwitchView = { isTopContainer = !isTopContainer },
+            controlsVisible = controlsVisible,
+            onHideControls = hideAllControls
+        )
 
         // Bottom Container
         PlayerContainer(
@@ -55,7 +104,8 @@ fun SwitchableExample(modifier: Modifier) {
             isActive = !isTopContainer,
             activeLabel = "Active Player Container (Bottom)",
             inactiveLabel = "Bottom Container (Inactive)",
-            playerView = playerView
+            playerView = playerView,
+            controller = controller
         )
     }
 
@@ -73,7 +123,8 @@ fun PlayerContainer(
     isActive: Boolean,
     activeLabel: String,
     inactiveLabel: String,
-    playerView: MutableState<AdPlayerView?>
+    playerView: MutableState<AdPlayerView?>,
+    controller: MutableState<AdPlayerController?>
 ) {
     Box(
         modifier = modifier
@@ -85,7 +136,8 @@ fun PlayerContainer(
         if (isActive) {
             VideoPlayerContainer(
                 modifier = Modifier.fillMaxSize(),
-                playerView = playerView
+                playerView = playerView,
+                controller = controller
             )
             Text(
                 text = activeLabel,
@@ -116,7 +168,8 @@ fun PlayerContainer(
 @Composable
 fun VideoPlayerContainer(
     modifier: Modifier,
-    playerView: MutableState<AdPlayerView?>
+    playerView: MutableState<AdPlayerView?>,
+    controller: MutableState<AdPlayerController?>
 ) {
     AndroidView(
         factory = { context ->
@@ -124,7 +177,7 @@ fun VideoPlayerContainer(
             val view = playerView.value ?: run {
                 val newView = AdPlayerView(context)
                 playerView.value = newView
-                newView.load(pubId = PUB_ID, tagId = TAG_ID)
+                controller.value = newView.load(pubId = PUB_ID, tagId = TAG_ID)
                 newView
             }
 
@@ -139,3 +192,30 @@ fun VideoPlayerContainer(
         modifier = modifier,
     )
 }
+
+@Composable
+fun ButtonRow(
+    onSwitchView: () -> Unit,
+    controlsVisible: Boolean,
+    onHideControls: () -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .padding(16.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        Button(
+            onClick = onSwitchView
+        ) {
+            Text("Switch View")
+        }
+
+        Button(
+            onClick = onHideControls,
+            enabled = controlsVisible
+        ) {
+            Text(if (controlsVisible) "🙈 Hide Controls" else "Controls Hidden")
+        }
+    }
+}
+
