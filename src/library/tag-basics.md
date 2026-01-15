@@ -17,5 +17,12 @@ val tag = AdPlayer.getTag(context, pubId = pubId, tagId = tagId) {
     // override package name used for requesting ADs and analytics
     // * since 3.1.0
     packageName = "com.organization.application"
+
+    // additional macros used for requesting ADs
+    // * since 3.4.0
+    macros = mapOf(
+        "AV_APPNAME" to "My Awesome Application",
+        "AV_APPSTOREURL" to "https://play.google.com/store/apps/details?id=com.awesome.app",
+    )
 }
 ```
