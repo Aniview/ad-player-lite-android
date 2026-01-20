@@ -22,6 +22,7 @@ import com.adservrs.adplayer.lite.AdPlayerView
 import com.adservrs.adplayer.lite.example.PUB_ID
 import com.adservrs.adplayer.lite.example.TAG_ID
 import com.adservrs.adplayer.lite.example.utils.toToggleableState
+import org.json.JSONArray
 import org.json.JSONObject
 
 private val contentControlKeys = setOf(
@@ -50,6 +51,12 @@ private val contentControlKeys = setOf(
     "nextPreview",
     "timeline",
     "duration",
+    "logo",
+    "title",
+    "sharing",
+    "playbackRates",
+    "textTracks",
+    "videoTracks",
 )
 
 @Suppress("COMPOSE_APPLIER_CALL_MISMATCH")
@@ -98,11 +105,17 @@ fun MergeContentConfigExample(modifier: Modifier) {
                                 onClick = {
                                     contentControls[control] = state == false
 
-                                    val config = JSONObject()
+                                    val config1 = JSONObject()
+                                    val config2 = JSONObject().put(
+                                        "matches",
+                                        JSONObject().put("device", JSONArray().put("mobile"))
+                                    )
                                     for ((key, value) in contentControls) {
-                                        config.put(key, JSONObject().put("enable", value))
+                                        config1.put(key, JSONObject().put("enable", value))
+                                        config2.put(key, JSONObject().put("enable", value))
                                     }
-                                    controller.value?.mergeContentConfig(config)
+                                    controller.value?.mergeContentConfig(config1)
+                                    controller.value?.mergeContentConfig(config2)
                                 },
                             )
                         },
