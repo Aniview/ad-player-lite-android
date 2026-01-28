@@ -15,12 +15,19 @@ import com.adservrs.adplayer.lite.example.examples.MasterHeadExample
 import com.adservrs.adplayer.lite.example.examples.MergeContentConfigExample
 import com.adservrs.adplayer.lite.example.examples.Preloading
 import com.adservrs.adplayer.lite.example.examples.SimpleExample
+import com.adservrs.adplayer.lite.example.examples.SwitchableExample
 
 enum class Example {
     Simple {
         @Composable
         override fun Compose(modifier: Modifier) {
             SimpleExample(modifier)
+        }
+    },
+    Switchable {
+        @Composable
+        override fun Compose(modifier: Modifier) {
+            SwitchableExample(modifier)
         }
     },
     Preloading {
