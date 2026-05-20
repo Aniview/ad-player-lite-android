@@ -24,5 +24,9 @@ val tag = AdPlayer.getTag(context, pubId = pubId, tagId = tagId) {
         "AV_APPNAME" to "My Awesome Application",
         "AV_APPSTOREURL" to "https://play.google.com/store/apps/details?id=com.awesome.app",
     )
+
+    // User-Agent that will be used for all requests and analytics.
+    // * since 3.10.0
+    userAgent = "My Custom User-Agent"
 }
 ```

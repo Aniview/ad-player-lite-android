@@ -55,6 +55,10 @@ val controller = tag.newInReadController {
     // disable in-stream video ads
     // * available since 3.0.0
     it.disableVideoAds = true
+    
+    // use SurfaceView instead of TextureView for IMA video playback
+    // * available since 3.10.0
+    it.useSurfaceViewForIma = true
 
     // override in-stream content by using CmsId
     // * available since 3.0.0
