@@ -23,5 +23,6 @@
 - [Player Controls Visibility](library/controls-visibility/index.md)
 - [Preloading](library/preloading.md)
 - [IMA Friendly Obstructions](library/ima-friendly-obstruction.md)
+- [Floating Placement](library/floating/index.md)
 
 ---
