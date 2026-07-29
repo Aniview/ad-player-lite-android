@@ -10,6 +10,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.adservrs.adplayer.lite.example.examples.ClickThroughInterceptorExample
+import com.adservrs.adplayer.lite.example.examples.FloatingRecyclerViewExample
 import com.adservrs.adplayer.lite.example.examples.InstreamContentOverrideExample
 import com.adservrs.adplayer.lite.example.examples.MasterHeadExample
 import com.adservrs.adplayer.lite.example.examples.MergeContentConfigExample
@@ -58,6 +59,12 @@ enum class Example {
         @Composable
         override fun Compose(modifier: Modifier) {
             SearchResponseExample(modifier)
+        }
+    },
+    FloatingRecyclerViewScreen {
+        @Composable
+        override fun Compose(modifier: Modifier) {
+            FloatingRecyclerViewExample(modifier)
         }
     };
 

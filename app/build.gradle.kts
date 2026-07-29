@@ -24,6 +24,7 @@ android {
     }
 
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
@@ -39,7 +40,7 @@ android {
 
 dependencies {
     //noinspection UseTomlInstead
-    implementation("com.adservrs:ad-player-lite:3.10.0")
+    implementation("com.adservrs:ad-player-lite:4.0.0")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -49,7 +50,10 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.recyclerview)
 
     implementation(libs.kotlinx.ktor.core)
     implementation(libs.kotlinx.ktor.okhttp)
+
+    coreLibraryDesugaring(libs.android.desugar.jdk.libs)
 }
