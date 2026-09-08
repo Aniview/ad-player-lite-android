@@ -40,7 +40,7 @@ android {
 
 dependencies {
     //noinspection UseTomlInstead
-    implementation("com.adservrs:ad-player-lite:4.1.0")
+    implementation("com.adservrs:ad-player-lite:4.2.0")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
