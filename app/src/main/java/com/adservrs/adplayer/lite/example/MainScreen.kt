@@ -14,6 +14,7 @@ import com.adservrs.adplayer.lite.example.examples.FloatingRecyclerViewExample
 import com.adservrs.adplayer.lite.example.examples.InstreamContentOverrideExample
 import com.adservrs.adplayer.lite.example.examples.MasterHeadExample
 import com.adservrs.adplayer.lite.example.examples.MergeContentConfigExample
+import com.adservrs.adplayer.lite.example.examples.PreloadBannerExample
 import com.adservrs.adplayer.lite.example.examples.Preloading
 import com.adservrs.adplayer.lite.example.examples.SearchResponseExample
 import com.adservrs.adplayer.lite.example.examples.SimpleExample
@@ -29,6 +30,12 @@ enum class Example {
         @Composable
         override fun Compose(modifier: Modifier) {
             Preloading(modifier)
+        }
+    },
+    PreloadBanner {
+        @Composable
+        override fun Compose(modifier: Modifier) {
+            PreloadBannerExample(modifier)
         }
     },
     MasterHead {
