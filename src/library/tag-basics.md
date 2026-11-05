@@ -4,10 +4,10 @@
 
 Tag is a factory used to create controllers.
 
-
 ## Creating a Tag
 
 Tag can be created by using `AdPlayer` global object:
+
 ```kotlin
 val tag = AdPlayer.getTag(context, pubId = pubId, tagId = tagId) {
     // override default environment
@@ -28,5 +28,9 @@ val tag = AdPlayer.getTag(context, pubId = pubId, tagId = tagId) {
     // User-Agent that will be used for all requests and analytics.
     // * since 3.10.0
     userAgent = "My Custom User-Agent"
+
+    // Override device type, otherwise selected automatically
+    // * since 4.7.0
+    deviceType = DeviceType.Tv
 }
 ```
