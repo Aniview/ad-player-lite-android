@@ -18,6 +18,10 @@ val tag = AdPlayer.getTag(context, pubId = pubId, tagId = tagId) {
     // * since 3.1.0
     packageName = "com.organization.application"
 
+    // override domain name used for reporting and analytics
+    // * since 4.8.0
+    domainName = "my.organization.com"
+
     // additional macros used for requesting ADs
     // * since 3.4.0
     macros = mapOf(
