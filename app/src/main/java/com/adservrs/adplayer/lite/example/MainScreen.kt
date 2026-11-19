@@ -16,6 +16,7 @@ import com.adservrs.adplayer.lite.example.examples.MasterHeadExample
 import com.adservrs.adplayer.lite.example.examples.MergeContentConfigExample
 import com.adservrs.adplayer.lite.example.examples.PreloadBannerExample
 import com.adservrs.adplayer.lite.example.examples.Preloading
+import com.adservrs.adplayer.lite.example.examples.PreloadingNativeExample
 import com.adservrs.adplayer.lite.example.examples.SearchResponseExample
 import com.adservrs.adplayer.lite.example.examples.SimpleExample
 
@@ -36,6 +37,12 @@ enum class Example {
         @Composable
         override fun Compose(modifier: Modifier) {
             PreloadBannerExample(modifier)
+        }
+    },
+    PreloadBannerNative {
+        @Composable
+        override fun Compose(modifier: Modifier) {
+            PreloadingNativeExample(modifier)
         }
     },
     MasterHead {
